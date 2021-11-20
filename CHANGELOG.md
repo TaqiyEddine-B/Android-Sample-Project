@@ -1,3 +1,10 @@
+### [1.0.7](https://github.com/TaqiyEddine-B/Android-Sample-Project/compare/1.0.6...1.0.7) (2021-11-20)
+
+
+### 🛠 Fixes
+
+* Update CI ([a7b9555](https://github.com/TaqiyEddine-B/Android-Sample-Project/commit/a7b955577f25cfe975edae4a6a888db390ecb841))
+
 ### [1.0.6](https://github.com/TaqiyEddine-B/Android-Sample-Project/compare/1.0.5...1.0.6) (2021-11-20)
 
 
