@@ -104,7 +104,7 @@ generateNotes:
 # and pushing a commit.
 prepare:
   - path: "@semantic-release/exec"
-    prepareCmd : ls -a
+    prepareCmd : cat app/build.gradle
 
   - path: "@gdn/semantic-release-native"
     androidPath: "app/build.gradle"
