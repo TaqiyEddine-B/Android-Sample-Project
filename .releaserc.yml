@@ -102,11 +102,13 @@ generateNotes:
 # such as package.json, CHANGELOG.md, documentation or compiled assets
 # and pushing a commit.
 prepare:
+
   - path: "@gdn/semantic-release-native"
-    androidPath: "./app/build.gradle
+    androidPath: "./app/build.gradle"
 
   - path: "@semantic-release/changelog"
     # Create or update the changelog file in the local project repository
+
   - path: "@semantic-release/git"
     # Push a release commit and tag, including configurable files
     message: "r${nextRelease.version} - ${new Date().toLocaleDateString('en-US')}\n\n${nextRelease.notes}"
