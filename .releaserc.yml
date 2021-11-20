@@ -120,6 +120,8 @@ publish:
   - path: "@semantic-release/npm"
     npmPublish: false
 
+  - path: "@semantic-release/github"
+
 success: false
 
 fail: false
