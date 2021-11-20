@@ -15,6 +15,7 @@ verifyConditions:
   - "@semantic-release/git"
   - "@semantic-release/github"
   - "@gdn/semantic-release-native"
+  - "@semantic-release/exec"
 
 
 # Responsible for determining the type of the next release (major, minor or patch).
@@ -102,6 +103,8 @@ generateNotes:
 # such as package.json, CHANGELOG.md, documentation or compiled assets
 # and pushing a commit.
 prepare:
+  - path: "@semantic-release/exec"
+    prepareCmd : echo "hello, current dir $(PWD)"
 
   - path: "@gdn/semantic-release-native"
     androidPath: "./app/build.gradle"
