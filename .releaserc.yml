@@ -104,7 +104,8 @@ generateNotes:
 # and pushing a commit.
 prepare:
   - path: "@semantic-release/exec"
-    prepareCmd: ./updater.sh ${nextRelease.version}
+    prepareCmd: sed -i "s/versionName.*$/versionName \"${nextRelease.version}\"/" app/build.gradle; CODE=$(grep "versionCode" app/build.gradle | awk '{print $2}') ;NEXT=$(echo $CODE 1 | awk '{print $1 + $2}'); sed -i "s/versionCode.*$/versionCode $NEXT/" app/build.gradle
+
 
     #- path: "@gdn/semantic-release-native"
     #androidPath: /home/runner/work/Android-Sample-Project/Android-Sample-Project/app/build.gradle
