@@ -104,10 +104,10 @@ generateNotes:
 # and pushing a commit.
 prepare:
   - path: "@semantic-release/exec"
-    prepareCmd : pwd
+    prepareCmd: sed -i "s/versionName.*$/versionName "${nextRelease.version}"/" app/build.gradle
 
-  - path: "@gdn/semantic-release-native"
-    androidPath: /home/runner/work/Android-Sample-Project/Android-Sample-Project/app/build.gradle
+    #- path: "@gdn/semantic-release-native"
+    #androidPath: /home/runner/work/Android-Sample-Project/Android-Sample-Project/app/build.gradle
 
   - path: "@semantic-release/changelog"
     # Create or update the changelog file in the local project repository
