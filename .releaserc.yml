@@ -103,6 +103,7 @@ generateNotes:
 # and pushing a commit.
 prepare:
   - path: "@gdn/semantic-release-native"
+    androidPath: "./app/build.gradle
 
   - path: "@semantic-release/changelog"
     # Create or update the changelog file in the local project repository
