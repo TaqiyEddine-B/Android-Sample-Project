@@ -1,0 +1,138 @@
+name: Android CI/CD
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    name: Lint
+    if: false # always skip job
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2.3.4
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Lint
+        run: ./gradlew lint
+
+      - name: Upload lint report
+        uses: actions/upload-artifact@v2.2.4
+        if: always()
+        with:
+          name: lint-report
+          path: app/build/reports/lint-results-debug.html
+
+  test:
+    name: Unit Test
+    if: false # always skip job
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2.3.4
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Run tests
+        run: ./gradlew test --stacktrace
+
+      - name: Upload test report
+        uses: actions/upload-artifact@v2.2.4
+        if: always()
+        with:
+          name: unit-test-report
+          path: app/build/reports/tests/testReleaseUnitTest/
+
+  semrel:
+    name: Semantic Release
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v2.5.0
+        with:
+          # You can specify specifying version range for the extra plugins if you prefer.
+          extra_plugins: |
+            @semantic-release/changelog@3.0.0
+            @semantic-release/git
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN}}
+  build:
+    name: Build
+    if: false # always skip job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2.3.4
+
+      - name: Set up java
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Generate Release APK
+        run: ./gradlew assembleRelease
+
+      - name: Sign APK
+        uses: r0adkll/sign-android-release@v1
+        id: sign_app
+        with:
+          releaseDirectory: app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+      - uses: actions/upload-artifact@master
+        with:
+          name: release.apk
+          path: ${{steps.sign_app.outputs.signedReleaseFile}}
+
+      - uses: actions/upload-artifact@master
+        with:
+          name: mapping.txt
+          path: app/build/outputs/mapping/release/mapping.txt
+
+  deploy-play-store:
+    name: Build
+    if: false # always skip job
+    needs: [build]
+
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/download-artifact@master
+        with:
+          name: release.apk
+      - uses: actions/download-artifact@master
+        with:
+          name: mapping.txt
+
+      - name: Publish to Play Store internal test track
+        uses: r0adkll/upload-google-play@v1.0.15
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+
+          packageName: com.teb.quran.abrar
+          releaseFiles: app-release-unsigned-signed.apk
+          track: beta
+          userFraction: 0.50
+          mappingFile: mapping.txt
