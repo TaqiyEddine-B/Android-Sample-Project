@@ -14,6 +14,7 @@ verifyConditions:
   - "@semantic-release/changelog"
   - "@semantic-release/git"
   - "@semantic-release/github"
+  - "@gdn/semantic-release-native"
 
 
 # Responsible for determining the type of the next release (major, minor or patch).
@@ -101,13 +102,14 @@ generateNotes:
 # such as package.json, CHANGELOG.md, documentation or compiled assets
 # and pushing a commit.
 prepare:
+  - path: "@gdn/semantic-release-native"
 
   - path: "@semantic-release/changelog"
     # Create or update the changelog file in the local project repository
   - path: "@semantic-release/git"
     # Push a release commit and tag, including configurable files
-    message: "RELEASE: ${nextRelease.version} - ${new Date().toLocaleDateString('en-US')} [skip ci]\n\n${nextRelease.notes}"
-    "assets": ["CHANGELOG.md"]
+    message: "r${nextRelease.version} - ${new Date().toLocaleDateString('en-US')}\n\n${nextRelease.notes}"
+    "assets": ["CHANGELOG.md","build.gradle"]
 
 
 # Responsible for publishing the release.
