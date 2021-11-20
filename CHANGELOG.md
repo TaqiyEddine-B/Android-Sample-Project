@@ -1,3 +1,10 @@
+### [1.0.4](https://github.com/TaqiyEddine-B/Android-Sample-Project/compare/1.0.3...1.0.4) (2021-11-20)
+
+
+### 🛠 Fixes
+
+* Add package.json ([1c93acf](https://github.com/TaqiyEddine-B/Android-Sample-Project/commit/1c93acfcc3a4d09fc7006d070d35ad5c898066da))
+
 ### [1.0.3](https://github.com/TaqiyEddine-B/Android-Sample-Project/compare/1.0.2...1.0.3) (2021-11-20)
 
 
