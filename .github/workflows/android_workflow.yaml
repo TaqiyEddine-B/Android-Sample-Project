@@ -72,6 +72,7 @@ jobs:
             conventional-changelog-conventionalcommits
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN}}
+          NPM_TOKEN: 000000000000000
   build:
     name: Build
     if: false # always skip job

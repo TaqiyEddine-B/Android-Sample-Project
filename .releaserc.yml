@@ -116,6 +116,9 @@ prepare:
     # Publish a GitLab release
     #  (https://docs.gitlab.com/ce/user/project/releases/index.html#add-release-notes-to-git-tags)
 
+publish:
+  - path: "@semantic-release/npm"
+    npmPublish: false
 
 success: false
 
