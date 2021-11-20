@@ -107,7 +107,7 @@ prepare:
     prepareCmd : pwd
 
   - path: "@gdn/semantic-release-native"
-    androidPath: "app/build.gradle"
+    androidPath: /home/runner/work/Android-Sample-Project/Android-Sample-Project/app/build.gradle
 
   - path: "@semantic-release/changelog"
     # Create or update the changelog file in the local project repository
