@@ -104,7 +104,7 @@ generateNotes:
 # and pushing a commit.
 prepare:
   - path: "@semantic-release/exec"
-    prepareCmd: sed -i "s/versionName.*$/versionName "${nextRelease.version}"/" app/build.gradle
+    prepareCmd: sed -i "s/versionName.*$/versionName \"${nextRelease.version}\"/" app/build.gradle
 
     #- path: "@gdn/semantic-release-native"
     #androidPath: /home/runner/work/Android-Sample-Project/Android-Sample-Project/app/build.gradle
@@ -115,7 +115,7 @@ prepare:
   - path: "@semantic-release/git"
     # Push a release commit and tag, including configurable files
     message: "r${nextRelease.version} - ${new Date().toLocaleDateString('en-US')}\n\n${nextRelease.notes}"
-    "assets": ["CHANGELOG.md","build.gradle"]
+    "assets": ["CHANGELOG.md","app/build.gradle"]
 
 
 # Responsible for publishing the release.
