@@ -13,6 +13,7 @@ preset: "conventionalcommits"
 verifyConditions:
   - "@semantic-release/changelog"
   - "@semantic-release/git"
+  - "@semantic-release/github"
 
 
 # Responsible for determining the type of the next release (major, minor or patch).
